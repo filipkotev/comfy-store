@@ -1,7 +1,7 @@
-import { BsCart3, BsMoonFill, BsSunFill } from 'react-icons/bs';
+import { BsCart3 } from 'react-icons/bs';
 import { FaBarsStaggered } from 'react-icons/fa6';
 import { NavLink } from 'react-router-dom';
-import { NavLinks } from './'
+import { NavLinks, ThemeToggler } from './'
 
 const Navbar = () => {
   return (
@@ -35,6 +35,7 @@ const Navbar = () => {
         </div>
         <div className='navbar-end'>
           {/* THEME ICONS */}
+          <ThemeToggler />
           {/* CART LINK*/}
           <NavLink to='cart' className='btn btn-ghost btn-circle btn-md ml-4'>
             <div className='indicator'>
