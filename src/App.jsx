@@ -18,7 +18,7 @@ import {
 import { ErrorElement } from './components';
 
 // loaders
-// import { loader as landingLoader } from './pages/Landing';
+import { loader as landingLoader } from './pages/Landing';
 // import { loader as singleProductLoader } from './pages/SingleProduct';
 // import { loader as productsLoader } from './pages/Products';
 // import { loader as checkoutLoader } from './pages/Checkout';
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         index: true,
         element: <Landing />,
         errorElement: <ErrorElement />,
-        // loader: landingLoader(queryClient),
+        loader: landingLoader,
       },
       {
         path: 'products',
