@@ -15,6 +15,7 @@ export const loader = async ({ request }) => {
   return { products, meta, params };
 };
 
+
 const Products = () => {
   return (
     <>
