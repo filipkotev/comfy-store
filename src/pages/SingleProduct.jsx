@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLoaderData, Link } from 'react-router-dom';
-import { formatPrice, customFetch } from '../utils/index';
+import { formatPrice, customFetch, generateAmountOptions } from '../utils/index';
 
 export const loader = async ({ params }) => {
   const response = await customFetch(`/products/${params.id}`);
@@ -36,7 +36,7 @@ const SingleProduct = () => {
         <img
           src={image}
           alt={title}
-          className='w-96 h-96 object-cover rounded-lg lg:w-full  '
+          className='w-96 h-96 object-cover rounded-lg lg:w-full'
         />
         {/* PRODUCT INFO */}
         <div>
@@ -81,9 +81,7 @@ const SingleProduct = () => {
               value={amount}
               onChange={handleAmount}
             >
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
+              {generateAmountOptions(20)}
             </select>
           </div>
           {/* CART BUTTON */}
