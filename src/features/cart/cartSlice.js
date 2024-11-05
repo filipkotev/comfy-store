@@ -3,11 +3,11 @@ import { toast } from "react-toastify";
 
 const initialState = {
   cartItems: [],
-  numItemsInCart: 3,
-  cartTotal: 5,
+  numItemsInCart: 0,
+  cartTotal: 0,
   shipping: 500,
-  tax: 80,
-  orderTotal: 600,
+  tax: 0,
+  orderTotal: 0,
 };
 
 const cartSlice = createSlice({
@@ -15,7 +15,7 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action) => {
-      console.log(action.payload);
+
     },
     removeItem: (state, action) => {
 
