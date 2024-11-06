@@ -19,7 +19,7 @@ const cartSlice = createSlice({
   initialState: getCartFromLocalStorage(),
   reducers: {
     addItem: (state, action) => {
-      const {product} = action.payload;
+      const { product } = action.payload;
 
       // Find out if product is in the cart already and return it
       const item = state.cartItems.find(i => i.id === product.id);
@@ -36,13 +36,36 @@ const cartSlice = createSlice({
       toast.success('Item added to cart');
     },
     removeItem: (state, action) => {
+      const { cartID } = action.payload;
 
+      // We need the product and its properties like price and amount so we can subtract them from cart total
+      const product = state.cartItems.find(i => i.cartID === cartID)
+
+      // Override state's cartItems with the updated array of items
+      state.cartItems = state.cartItems.filter(i => i.cartID !== cartID);
+
+      state.numItemsInCart -= product.amount;
+      state.cartTotal -= product.price * product.amount;
+      // Re-calculate cart totals with the updated state properties
+      cartSlice.caseReducers.calculateTotals(state);
+
+      toast.success('Item removed from cart');
     },
     editItem: (state, action) => {
+      const { cartID, amount } = action.payload;
+      const item = state.cartItems.find(i => i.cartID === cartID);
 
+      state.numItemsInCart += amount - item.amount;
+      state.cartTotal += item.price * (amount - item.amount);
+      item.amount = amount;
+      // Re-calculate cart totals with the updated state properties
+      cartSlice.caseReducers.calculateTotals(state);
+
+      toast.success('Cart updated');
     },
-    clearCart: (state) => {
-
+    clearCart: () => {
+      localStorage.setItem('cart', initialState);
+      return initialState;
     },
     calculateTotals: (state) => {
       state.tax = state.cartTotal * 0.1;
@@ -52,5 +75,5 @@ const cartSlice = createSlice({
   }
 })
 
-export const {addItem, removeItem, editItem, clearItem} = cartSlice.actions;
+export const { addItem, removeItem, editItem, clearItem } = cartSlice.actions;
 export default cartSlice.reducer;
