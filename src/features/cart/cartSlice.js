@@ -10,9 +10,13 @@ const initialState = {
   orderTotal: 0,
 };
 
+const getCartFromLocalStorage = () => {
+  return JSON.parse(localStorage.getItem('cart') || initialState);
+}
+
 const cartSlice = createSlice({
   name: 'cart',
-  initialState,
+  initialState: getCartFromLocalStorage(),
   reducers: {
     addItem: (state, action) => {
       const {product} = action.payload;
@@ -28,9 +32,7 @@ const cartSlice = createSlice({
 
       state.numItemsInCart += product.amount;
       state.cartTotal += product.price * product.amount;
-      state.tax = state.cartTotal * 0.1;
-      state.orderTotal = state.tax + state.cartTotal + state.shipping;
-      localStorage.setItem('cart', JSON.stringify(state));
+      cartSlice.caseReducers.calculateTotals(state);
       toast.success('Item added to cart');
     },
     removeItem: (state, action) => {
@@ -41,6 +43,11 @@ const cartSlice = createSlice({
     },
     clearCart: (state) => {
 
+    },
+    calculateTotals: (state) => {
+      state.tax = state.cartTotal * 0.1;
+      state.orderTotal = state.tax + state.cartTotal + state.shipping;
+      localStorage.setItem('cart', JSON.stringify(state));
     }
   }
 })
