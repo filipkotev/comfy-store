@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { NavLinks, ThemeToggler } from './'
 
 const Navbar = () => {
-  const numItemsInCart = useSelector(state => state.cartState.numItemsInCart)
+  const numItemsInCart = useSelector(state => state.cartSlice.numItemsInCart)
 
   return (
     <nav className='bg-base-200'>

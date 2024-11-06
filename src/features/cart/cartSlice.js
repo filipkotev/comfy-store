@@ -22,7 +22,7 @@ const cartSlice = createSlice({
       const { product } = action.payload;
 
       // Find out if product is in the cart already and return it
-      const item = state.cartItems.find(i => i.id === product.id);
+      const item = state.cartItems.find(i => i.cartID === product.cartID);
 
       if (item) {
         item.amount += product.amount;
@@ -61,7 +61,7 @@ const cartSlice = createSlice({
       // Re-calculate cart totals with the updated state properties
       cartSlice.caseReducers.calculateTotals(state);
 
-      toast.success('Cart updated');
+      toast.success('Cart updated')
     },
     clearCart: () => {
       localStorage.setItem('cart', initialState);

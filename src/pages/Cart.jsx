@@ -4,7 +4,7 @@ import { CartItem, CartTotals, CartItemsList, SectionTitle } from "../components
 
 const Cart = () => {
   const user = null;
-  const numItemsInCart = useSelector(state => state.cartState.numItemsInCart);
+  const numItemsInCart = useSelector(state => state.cartSlice.numItemsInCart);
 
   if (numItemsInCart === 0) {
     return <SectionTitle text="Your cart is empy" />;

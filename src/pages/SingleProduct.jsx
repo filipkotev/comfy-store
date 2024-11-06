@@ -22,6 +22,7 @@ const SingleProduct = () => {
     productID: product.id,
     title,
     price,
+    image,
     amount,
     productColor,
     company
