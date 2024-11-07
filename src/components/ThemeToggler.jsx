@@ -1,28 +1,12 @@
-import { useEffect, useState } from 'react';
 import { BsMoonFill, BsSunFill } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
+import { toggleTheme } from '../features/user/userSlice';
 
-const themes = {
-  winter: 'winter',
-  dracula: 'dracula'
-}
-
-// KEEP IN MIND this won't work on Login and Register pages(where Navbar isn't used)
-// this can be fixed with global state, i.e. Redux or React Context
 const ThemeToggler = () => {
-  const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('theme') || themes.winter;
-  });
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  }, [theme])
+  const dispatch = useDispatch();
 
   const handleTheme = () => {
-    // Destructure themes so we can compare it to the state, then set the new state
-    const { winter, dracula } = themes;
-    const newTheme = theme === winter ? dracula : winter;
-    setTheme(newTheme);
+    dispatch(toggleTheme());
   };
   return (
     <div className='navbar-end'>
