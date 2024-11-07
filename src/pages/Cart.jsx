@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { CartItem, CartTotals, CartItemsList, SectionTitle } from "../components";
 
 const Cart = () => {
-  const user = null;
+  const user = useSelector(state => state.userSlice.user);
   const numItemsInCart = useSelector(state => state.cartSlice.numItemsInCart);
 
   if (numItemsInCart === 0) {

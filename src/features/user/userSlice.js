@@ -26,8 +26,10 @@ const userSlice = createSlice({
     loginUser: (state, action) => {
       console.log('login');
     },
-    logotUser: (action) => {
-      console.log('logout');
+    logoutUser: (state) => {
+      state.user = null;
+      localStorage.removeItem('user');
+      toast.success('Logged out successfully');
     },
     toggleTheme: (state) => {
       const { winter, dracula } = themes;
@@ -38,5 +40,5 @@ const userSlice = createSlice({
   }
 });
 
-export const { loginUser, logotUser, toggleTheme } = userSlice.actions;
+export const { loginUser, logoutUser, toggleTheme } = userSlice.actions;
 export default userSlice.reducer;
