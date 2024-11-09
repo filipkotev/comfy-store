@@ -1,5 +1,18 @@
 import { useSelector } from 'react-redux';
 import { CheckoutForm, SectionTitle, CartTotals } from '../components';
+import { redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+export const loader = (store) => async () => {
+  const user = store.getState().userSlice.user;
+
+  if (!user) {
+    toast.error('You must be logged in to checkout');
+    return redirect('/login');
+  }
+
+  return null;
+}
 
 const Checkout = () => {
   const cartTotal = useSelector((state) => state.cartSlice.cartTotal);
