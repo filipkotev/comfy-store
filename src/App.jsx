@@ -25,9 +25,9 @@ import { loader as productsLoader } from './pages/Products';
 // import { loader as ordersLoader } from './pages/Orders';
 // actions
 import { action as registerAction } from './pages/Register';
-// import { action as loginAction } from './pages/Login';
+import { action as loginAction } from './pages/Login';
 // import { action as checkoutAction } from './components/CheckoutForm';
-// import { store } from './store';
+import { store } from './store';
 
 // const queryClient = new QueryClient({
 //   defaultOptions: {
@@ -86,7 +86,7 @@ const router = createBrowserRouter([
     path: '/login',
     element: <Login />,
     errorElement: <Error />,
-    // action: loginAction(store),
+    action: loginAction(store),
   },
   {
     path: '/register',
