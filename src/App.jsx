@@ -23,8 +23,8 @@ import { loader as singleProductLoader } from './pages/SingleProduct';
 import { loader as productsLoader } from './pages/Products';
 // import { loader as checkoutLoader } from './pages/Checkout';
 // import { loader as ordersLoader } from './pages/Orders';
-// // actions
-// import { action as registerAction } from './pages/Register';
+// actions
+import { action as registerAction } from './pages/Register';
 // import { action as loginAction } from './pages/Login';
 // import { action as checkoutAction } from './components/CheckoutForm';
 // import { store } from './store';
@@ -92,7 +92,7 @@ const router = createBrowserRouter([
     path: '/register',
     element: <Register />,
     errorElement: <Error />,
-    // action: registerAction,
+    action: registerAction,
   },
 ]);
 
