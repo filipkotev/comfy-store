@@ -6,42 +6,44 @@ import { loginUser } from '../features/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { customFetch } from '../utils';
 
-
-const LOGIN_URL = '/auth/local';
-
-export const action = (store) => {
-  return async ({ request }) => {
+export const action =
+  (store) =>
+  async ({ request }) => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
 
     try {
-      const response = await customFetch.post(LOGIN_URL, data);
+      const response = await customFetch.post('/auth/local', data);
       store.dispatch(loginUser(response.data));
-      toast.success('Logged in successfully');
+      toast.success('logged in successfully');
       return redirect('/');
     } catch (error) {
-      const errorMessage = error?.response?.data?.error?.message || 'Someting went wrong! Try to login again';
+      const errorMessage =
+        error?.response?.data?.error?.message ||
+        'please double check your credentials';
       toast.error(errorMessage);
       return null;
     }
-  }
-}
+  };
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const loginAsGuest = async () => {
+  const loginAsGuestUser = async () => {
     try {
-      const response = customFetch.post(LOGIN_URL, { identifier: 'test@test.com', password: 'secret' });
+      const response = await customFetch.post('/auth/local', {
+        identifier: 'test@test.com',
+        password: 'secret',
+      });
       dispatch(loginUser(response.data));
-      toast.success('Welcome guest user');
-      navigate('/products');
+      toast.success('welcome guest user');
+      navigate('/');
     } catch (error) {
       console.log(error);
-      toast.error('guest user login error.please try later.');
+      toast.error('guest user login error. please try again');
     }
-  }
+  };
 
   return (
     <section className="h-screen grid place-items-center">
@@ -63,7 +65,7 @@ const Login = () => {
         <button
           type="button"
           className="btn btn-secondary btn-block uppercase"
-          onClick={loginAsGuest}
+          onClick={loginAsGuestUser}
         >guest user</button>
         <p className="text-center">
           Not a member yet?{' '}
