@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { clearCart } from '../features/cart/cartSlice';
 
 export const action =
-  // (store, queryClient) =>
+  (store, queryClient) =>
   (store) =>
   async ({ request }) => {
     const formData = await request.formData();
@@ -34,7 +34,10 @@ export const action =
           },
         }
       );
-      // queryClient.removeQueries(['orders']);
+
+      // Remove cached query to make sure new 'orders' will be fetched
+      queryClient.removeQueries(['orders']);
+
       store.dispatch(clearCart());
       toast.success('order placed successfully');
       return redirect('/orders');
