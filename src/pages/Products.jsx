@@ -1,6 +1,25 @@
 import { Filters, PaginationContainer, ProductsContainer } from '../components';
 import { customFetch } from '../utils';
 
+const allProductsQuery = (queryParams) => {
+  const { search, category, company, sort, price, shipping, page } = queryParams;
+
+  return {
+    queryKey: [
+      'products',
+      search ?? '',
+      category ?? 'all',
+      company ?? 'all',
+      sort ?? 'a-z',
+      price ?? 100000,
+      shipping ?? false,
+      page ?? 1,
+    ],
+    queryFn: () =>
+      customFetch('/products', { params: queryParams })
+  }
+}
+
 export const loader =
   (queryClient) =>
     async ({ request }) => {
@@ -8,7 +27,9 @@ export const loader =
         ...new URL(request.url).searchParams.entries(),
       ]);
       // console.log(params);
-      const response = await customFetch('/products', { params });
+      const response = await queryClient.ensureQueryData(
+        allProductsQuery(params)
+      );
       // console.log(response);
       const products = response.data.data;
       const meta = response.data.meta;
