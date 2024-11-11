@@ -30,7 +30,7 @@ export const action =
         { data: info },
         {
           headers: {
-            Authorization: `Bearer ${user.tokens}`,
+            Authorization: `Bearer ${user.token}`,
           },
         }
       );
